@@ -17,16 +17,16 @@ const flappyBird = {
     gravidade: 0.25,
     velocidade: 0,
 
-    atualiza (){
+    atualiza() {
         flappyBird.velocidade = flappyBird.velocidade + flappyBird.gravidade;
         flappyBird.y = flappyBird.y + flappyBird.velocidade;
 
     },
 
-    desenha (){
+    desenha() {
         contexto.drawImage(
 
-            sprites, 
+            sprites,
             flappyBird.spriteX, flappyBird.sptriteY, //sprite X, Sprite Y
             flappyBird.largura, flappyBird.altura, //tamanho do recorte
             flappyBird.x, flappyBird.y, //posição dentro do canvas 
@@ -43,7 +43,7 @@ const chao = {
     x: 0,
     y: canvas.height - 112,
 
-    desenha (){
+    desenha() {
         contexto.drawImage(
             sprites,
             chao.spriteX, chao.spriteY,
@@ -72,23 +72,23 @@ const planoFundo = {
 
     desenha() {
         contexto.fillStyle = '#70c5ce';
-        contexto.fillRect(0,0, canvas.width, canvas.height);
+        contexto.fillRect(0, 0, canvas.width, canvas.height);
 
-      contexto.drawImage(
-        sprites,
-        planoFundo.spriteX, planoFundo.spriteY,
-        planoFundo.largura, planoFundo.altura,
-        planoFundo.x, planoFundo.y,
-        planoFundo.largura, planoFundo.altura,
-      );
+        contexto.drawImage(
+            sprites,
+            planoFundo.spriteX, planoFundo.spriteY,
+            planoFundo.largura, planoFundo.altura,
+            planoFundo.x, planoFundo.y,
+            planoFundo.largura, planoFundo.altura,
+        );
 
-      contexto.drawImage(
-          sprites,
-          planoFundo.spriteX, planoFundo.spriteY,
-          planoFundo.largura, planoFundo.altura,
-          (planoFundo.x + planoFundo.largura), planoFundo.y,
-          planoFundo.largura, planoFundo.altura,
-      );
+        contexto.drawImage(
+            sprites,
+            planoFundo.spriteX, planoFundo.spriteY,
+            planoFundo.largura, planoFundo.altura,
+            (planoFundo.x + planoFundo.largura), planoFundo.y,
+            planoFundo.largura, planoFundo.altura,
+        );
     },
 };
 
@@ -99,8 +99,8 @@ const telaInicio = {
     alt: 152,
     x: (canvas.width / 2) - 174 / 2,
     y: 50,
-    
-    desenha(){
+
+    desenha() {
         contexto.drawImage(
             sprites,
             telaInicio.sX, telaInicio.sY,
