@@ -114,6 +114,7 @@ const TelaDeInicio = {
 function loop() {
     flappyBird.atualiza();
 
+    TelaDeInicio.desenha();
     planoFundo.desenha();
     chao.desenha();
     flappyBird.desenha();
