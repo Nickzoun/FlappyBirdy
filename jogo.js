@@ -92,29 +92,10 @@ const planoFundo = {
     },
 };
 
-const TelaDeInicio = {
-    spriteX: 134,
-    spriteY: 0,
-    largura: 175,
-    altura: 152,
-    x: (canvas.width / 2) - 175 / 2,
-    y: 50,
-
-    desenha() {
-        contexto.drawImage(
-            sprites,
-            TelaDeInicio.spriteX, TelaDeInicio.spriteY,
-            TelaDeInicio.largura, TelaDeInicio.altura,
-            TelaDeInicio.x, TelaDeInicio.y,
-            TelaDeInicio.largura, TelaDeInicio.altura,
-        );
-    },
-};
 
 function loop() {
     flappyBird.atualiza();
 
-    TelaDeInicio.desenha();
     planoFundo.desenha();
     chao.desenha();
     flappyBird.desenha();
