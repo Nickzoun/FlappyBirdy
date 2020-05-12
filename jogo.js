@@ -92,6 +92,24 @@ const planoFundo = {
     },
 };
 
+const telaInicio = {
+    sX: 134,
+    sY: 0,
+    larg: 174,
+    alt: 152,
+    x: (canvas.width / 2) - 174 / 2,
+    y: 50,
+    
+    desenha(){
+        contexto.drawImage(
+            sprites,
+            telaInicio.sX, telaInicio.sY,
+            telaInicio.larg, telaInicio.alt,
+            telaInicio.x, telaInicio.y,
+            telaInicio.larg, telaInicio.alt,
+        );
+    },
+};
 
 function loop() {
     flappyBird.atualiza();
@@ -99,6 +117,8 @@ function loop() {
     planoFundo.desenha();
     chao.desenha();
     flappyBird.desenha();
+
+    telaInicio.desenha();
 
     requestAnimationFrame(loop);
 
