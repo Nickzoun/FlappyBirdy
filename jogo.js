@@ -114,12 +114,22 @@ const telaInicio = {
 //
 // [Telas]
 //
+let telaAtiva = {};
+function mudaParaTela(novaTela) {
+    telaAtiva = novaTela;
+};
 
 const telas = {
-    INICO: {
+    INICIO: {
         desenha() {
+            planoFundo.desenha();
+            chao.desenha();
+            flappyBird.desenha();
             telaInicio.desenha();
+        },
 
+        click() {
+            mudaParaTela(telas.JOGO);
         },
 
         atualiza() {
@@ -141,8 +151,18 @@ telas.JOGO = {
 };
 
 function loop() {
+    telaAtiva.desenha();
+    telaAtiva.atualiza();
+
     requestAnimationFrame(loop);
 
 };
 
+window.addEventListener('click', function() {
+    if (telaAtiva.click) {
+        telaAtiva.click();
+    };
+});
+
+mudaParaTela(telas.INICIO);
 loop();
