@@ -111,15 +111,36 @@ const telaInicio = {
     },
 };
 
+//
+// [Telas]
+//
+
+const telas = {
+    INICO: {
+        desenha() {
+            telaInicio.desenha();
+
+        },
+
+        atualiza() {
+
+        },
+    },
+};
+
+telas.JOGO = {
+    desenha() {
+        planoFundo.desenha();
+        chao.desenha();
+        flappyBird.desenha();
+    },
+
+    atualiza() {
+        flappyBird.atualiza();
+    },
+};
+
 function loop() {
-    flappyBird.atualiza();
-
-    planoFundo.desenha();
-    chao.desenha();
-    flappyBird.desenha();
-
-    telaInicio.desenha();
-
     requestAnimationFrame(loop);
 
 };
