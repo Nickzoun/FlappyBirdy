@@ -1,5 +1,5 @@
-console.log('[DevSoutinho] Flappy Bird');
-console.log('Inscreva-se no canal :D https://www.youtube.com/channel/UCzR2u5RWXWjUh7CwLSvbitA');
+const som_HIT = new Audio();
+som_HIT.src = './efeitos/hit.wav';
 
 const sprites = new Image();
 sprites.src = './sprites.png';
@@ -7,32 +7,62 @@ sprites.src = './sprites.png';
 const canvas = document.querySelector('canvas');
 const contexto = canvas.getContext('2d');
 
-const flappyBird = {
-    spriteX: 0,
-    sptriteY: 0,
-    largura: 34,
-    altura: 24,
-    x: 10,
-    y: 50,
-    gravidade: 0.25,
-    velocidade: 0,
+function fazColisao(flappyBird, chao) {
+    const flappyBirdY = flappyBird.y + flappyBird.altura;
+    const chaoY = chao.y;
 
-    atualiza() {
-        flappyBird.velocidade = flappyBird.velocidade + flappyBird.gravidade;
-        flappyBird.y = flappyBird.y + flappyBird.velocidade;
+    if (flappyBirdY >= chaoY) {
+        return true;
+    };
 
-    },
+    return false;
+};
 
-    desenha() {
-        contexto.drawImage(
+function criaFlappyBird() {
+    const flappyBird = {
+        spriteX: 0,
+        sptriteY: 0,
+        largura: 34,
+        altura: 24,
+        x: 10,
+        y: 50,
+        pulo: 4.6,
+    
+        pula() {
+            flappyBird.velocidade = - flappyBird.pulo;
+        },
+    
+        gravidade: 0.25,
+        velocidade: 0,
+    
+        atualiza() {
+            if (fazColisao(flappyBird, chao)) {
+                console.log("fez colisão");
+                som_HIT.play();
 
-            sprites,
-            flappyBird.spriteX, flappyBird.sptriteY, //sprite X, Sprite Y
-            flappyBird.largura, flappyBird.altura, //tamanho do recorte
-            flappyBird.x, flappyBird.y, //posição dentro do canvas 
-            flappyBird.largura, flappyBird.altura  //tamanho dentro do canvas
-        );
-    },
+                setTimeout(() => {
+                    mudaParaTela(telas.INICIO)
+                }, 500);
+                return;
+            };
+    
+            flappyBird.velocidade = flappyBird.velocidade + flappyBird.gravidade;
+            flappyBird.y = flappyBird.y + flappyBird.velocidade;
+        },
+    
+        desenha() {
+            contexto.drawImage(
+    
+                sprites,
+                flappyBird.spriteX, flappyBird.sptriteY, //sprite X, Sprite Y
+                flappyBird.largura, flappyBird.altura, //tamanho do recorte
+                flappyBird.x, flappyBird.y, //posição dentro do canvas 
+                flappyBird.largura, flappyBird.altura  //tamanho dentro do canvas
+            );
+        },
+    };
+
+    return flappyBird;
 };
 
 const chao = {
@@ -114,17 +144,26 @@ const telaInicio = {
 //
 // [Telas]
 //
+const globais = {};
 let telaAtiva = {};
 function mudaParaTela(novaTela) {
     telaAtiva = novaTela;
+
+    if(telaAtiva.inicializa) {
+        telaAtiva.inicializa();
+    };
 };
 
 const telas = {
     INICIO: {
+        inicializa() {
+           globais.flappyBird = criaFlappyBird();
+        },
+
         desenha() {
             planoFundo.desenha();
             chao.desenha();
-            flappyBird.desenha();
+            globais.flappyBird.desenha();
             telaInicio.desenha();
         },
 
@@ -142,11 +181,15 @@ telas.JOGO = {
     desenha() {
         planoFundo.desenha();
         chao.desenha();
-        flappyBird.desenha();
+        globais.flappyBird.desenha();
+    },
+
+    click() {
+        globais.flappyBird.pula();
     },
 
     atualiza() {
-        flappyBird.atualiza();
+        globais.flappyBird.atualiza();
     },
 };
 
@@ -158,7 +201,7 @@ function loop() {
 
 };
 
-window.addEventListener('click', function() {
+window.addEventListener('click', function () {
     if (telaAtiva.click) {
         telaAtiva.click();
     };
